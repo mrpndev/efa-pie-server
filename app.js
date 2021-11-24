@@ -14,7 +14,7 @@ const controllers = require("./controllers")
         - logic handling (controller)
     - Allows developers to seprate the concerns of an application.
 */
-
+app.use(Express.json())
 app.use("/pies", controllers.piecontroller)
 
 dbConnection.authenticate()
