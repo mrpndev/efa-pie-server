@@ -2,8 +2,8 @@ require("dotenv").config()
 const Express = require("express")
 const app = Express()
 const dbConnection = require("./db")
-
 const controllers = require("./controllers")
+const middlewares = require("./middleware")
 
 
 /*
@@ -14,8 +14,10 @@ const controllers = require("./controllers")
         - logic handling (controller)
     - Allows developers to seprate the concerns of an application.
 */
+app.use(middlewares.CORS)
 app.use(Express.json())
-app.use("/pies", controllers.piecontroller)
+app.use("/pies", middlewares.validateSession, controllers.piecontroller)
+app.use("/user", controllers.usercontroller)
 
 dbConnection.authenticate()
 .then(() => {
