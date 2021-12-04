@@ -3,6 +3,7 @@ const { UserModel } = require("../models")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const { UniqueConstraintError } = require("sequelize/lib/errors")
+const User = require("../models/user")
 
 
 router.post("/register", async (req, res) => {
@@ -21,7 +22,7 @@ router.post("/register", async (req, res) => {
         }, 
         process.env.JWT_SECRET,
         {
-            expiresIn: 60 * 60 * 24,
+            expiresIn: "60 * 60 * 24",
         })
 
         res.status(201).json({
@@ -73,6 +74,7 @@ router.post("/login", async (req, res) => {
                     message: "User logged in",
                     token
                 })}
+
             // } else {
             //     res.status(401).json({
             //         message: "Incorrect Password"
